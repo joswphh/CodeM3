@@ -8,6 +8,7 @@ public class Main {
         int personAge = 22;
         double productPrice = 19.99;
         float tempatureInCelsius = 27.5f;
-        boolean isLoggedIn = false;
+        boolean isLoggedIn = true;
+        System.out.println("hello");
     }
 }
