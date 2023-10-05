@@ -23,6 +23,9 @@ public class Main {
             sum = hours * rate;
         }
         else if(hours >= 40){
+            // Math.min will return the smaller number
+            // Math.max will return the higher number
+            // the 0 in math.max is to keep from it being negative
             double regularHours = Math.min(hours, regularHoursw);
             double overtimeHours = Math.max(hours - regularHours, 0);
             double regular = hours * rate;
