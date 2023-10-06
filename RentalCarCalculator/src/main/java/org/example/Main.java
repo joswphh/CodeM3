@@ -14,7 +14,7 @@ public class Main {
         double gps = 2.95;
         double roadSide = 3.95;
         double surcharge = 1.30;
-        System.out.println("Would you like an electronic Toll tag.It will be 3.95 a day. Please answer yes or no.");
+        System.out.println("Would you like an electronic Toll tag. It will be 3.95 a day. Please answer yes or no.");
         scanner.nextLine();
         String answerToll = scanner.nextLine();
         double finalToll = TollTag(tollTag, answerToll);
@@ -23,7 +23,7 @@ public class Main {
         double finalGps = Gps(gps, answerGps);
         System.out.println("would you like road side assistance? It will be 3.95 per day. Please answer yes or no");
         String answerRoad = scanner.nextLine();
-        double finalRoad = RoadSide(roadSide, answerRoad);
+         double finalRoad = RoadSide(roadSide, answerRoad);
         System.out.println("How old are you?");
         double answerAge = scanner.nextDouble();
         //double finalAge = Surcharge(surcharge, answerAge);
@@ -31,10 +31,11 @@ public class Main {
         double totalAlmost = finalRate * amountOfDays;
         double totalCost = Surcharge(surcharge, totalAlmost, answerAge);
 
-
+        System.out.printf("Basic price per day: $%.2f. Toll tag per day: $%.2f. road assistance per day: $%.2f. Gps per day: $%.2f", basicRate, finalToll, finalRoad, finalGps);
+        System.out.println("");
         System.out.printf("On the date %s the final price will be: %.2f", pickUpDate, totalCost);
         //System.out.println();
-
+        scanner.close();
     }
 
     public static double TollTag(double tollTag, String answerToll) {
