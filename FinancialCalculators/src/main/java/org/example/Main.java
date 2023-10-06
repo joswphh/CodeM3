@@ -22,18 +22,19 @@ public class Main {
                 break;
             } else {
                 System.out.println("You have entered a wrong input. Please try again");
-                scanner.nextLine();
+               scanner.nextLine();
             }
         }
 
         System.out.println("What interest rate would you like to use?");
         while (!validInput) {
+            scanner.nextLine();
             if (scanner.hasNextDouble()) {
                 interestRate = scanner.nextDouble();
                 break;
             } else {
                 System.out.println("You have entered a invalid interest rate. Please try again.");
-                scanner.nextLine();
+
             }
         }
 
