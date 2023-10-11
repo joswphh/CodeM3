@@ -29,10 +29,10 @@ public class Main {
             System.out.println("Great job you got a C!");
         }
         else if(score >= 60 && score <= 69){
-            System.out.println("We have some work to do you got a D");
+            System.out.println("We have some work to do you got a D.");
         }
         else if(score < 60){
-            System.out.println("We have some work to do you got an F");
+            System.out.println("We have some work to do you got an F.");
         }
         scanner.close();
 
