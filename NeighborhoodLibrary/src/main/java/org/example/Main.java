@@ -42,6 +42,10 @@ public class Main {
                 case 2:
                     displayAvailableBooks(library);
                     break;
+                case 3:
+                    System.out.println("Thank you! see you later!");
+                    System.exit(0);
+                    break;
 
 
             }
