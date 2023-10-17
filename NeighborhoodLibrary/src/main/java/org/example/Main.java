@@ -46,7 +46,8 @@ public class Main {
                     System.out.println("Thank you! see you later!");
                     System.exit(0);
                     break;
-
+                default:
+                    System.out.println("PLease enter a number 1,2, or 3.");
 
             }
         }
@@ -111,9 +112,7 @@ public class Main {
         for (Book book : books) {
             if (book.isCheckedOut()) {
                 System.out.println("Book ID: " + book.getId() + " Book ISBN: " + book.getIsbn() + " Book Title: " + book.getTitle() + " Checked out by: " + book.getCheckedOutTo());
-                book.setCheckedOut(false);
                 notCheckedOut = true;
-                break;
             }
         }
         if(!notCheckedOut){
@@ -131,13 +130,19 @@ public class Main {
                 case 1:
                     System.out.println("Please enter the book ID of the book your checking in.");
                     int returnID = scanner.nextInt();
-                    for ( Book library : books){
-                        if(library.getId() == returnID && library.isCheckedOut()){
-                            library.setCheckedOut(false);
-                            System.out.println("Book checked in successfully!");
-                        }
-                        else if(library.getId() != returnID && library.isCheckedOut()){
-                            System.out.println(" Your book ID is wrong");
+                    boolean input = false;
+                    while(!input) {
+                        for (Book library : books) {
+                            if (library.getId() == returnID && library.isCheckedOut()) {
+                                library.setCheckedOut(false);
+                                System.out.println("Book checked in successfully!");
+                                input = true;
+                                break;
+                            } else if (library.getId() != returnID && library.isCheckedOut()) {
+                                System.out.println("Your book ID is wrong, try again!");
+                                returnID = scanner.nextInt();
+
+                            }
                         }
                     }
                 case 2:

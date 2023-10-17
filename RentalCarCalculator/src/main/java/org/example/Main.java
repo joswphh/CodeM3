@@ -17,7 +17,7 @@ public class Main {
             }
             else{
                 System.out.println("Invalid input. Please enter a valid number of days");
-                scanner.nextLine();
+                scanner.next();
             }
         }
         double basicRate = 29.99;
