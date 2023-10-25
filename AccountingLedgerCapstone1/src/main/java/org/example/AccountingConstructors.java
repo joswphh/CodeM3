@@ -46,7 +46,7 @@ public class AccountingConstructors {
             System.out.println("Enter date of transaction: YYYY-MM-DD.");
             String dateInput = scanner.nextLine();
 
-            if(dateInput.matches("\\d{2}:\\d{2}:\\d{2}")){
+            if(dateInput.matches("\\d{4}-\\d{2}-\\d{2}")){
                 return dateInput;
             }else {
                 System.out.println("Sorry please enter date in YYYY-MM-DD format.");

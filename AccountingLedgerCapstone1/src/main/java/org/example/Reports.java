@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Reports {
     public static void reports() {
@@ -35,7 +34,7 @@ public class Reports {
 
             switch (userChoice) {
                 case 1:
-                    sortTransactionsByDate();
+                    monthToDate();
                     break;
                 case 2:
                     sortByPreviousMonth();
@@ -59,8 +58,6 @@ public class Reports {
             }
         }
     }
-
-   public static ArrayList<AccountingConstructors> transaction = transactions();
 
     public static ArrayList<AccountingConstructors> transactions() {
         ArrayList<AccountingConstructors> transaction = new ArrayList<>();
@@ -86,7 +83,7 @@ public class Reports {
         }
         return transaction;
     }
-    public static void sortTransactionsByDate() {
+    public static void monthToDate() {
         //declaring the list-
         List<AccountingConstructors> transactions = transactions();
 

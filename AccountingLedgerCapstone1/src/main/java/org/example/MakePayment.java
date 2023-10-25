@@ -30,7 +30,7 @@ public class MakePayment {
         catch(IOException ex){
             System.out.println("File not created. Error.");
         }
-        System.out.println("Deposit has been made successfully. Thank you!");
+        System.out.println("Payment has been made successfully. Thank you!");
     }
     }
 
