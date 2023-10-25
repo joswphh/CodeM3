@@ -7,11 +7,9 @@ import java.util.Scanner;
 public class MakePayment {
     public static void makePayment() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter date of transaction: YYYY-MM-DD.");
-        String date = scanner.nextLine();
+        String date = AccountingConstructors.getCorrectDate(scanner);
 
-        System.out.println("Enter time HH:MM.");
-        String time = scanner.nextLine();
+        String time = AccountingConstructors.getCorrectTime(scanner);
 
         System.out.println("Enter brief description of product.");
         String description = scanner.nextLine();

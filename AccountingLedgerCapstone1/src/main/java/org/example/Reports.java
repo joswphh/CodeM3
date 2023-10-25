@@ -23,8 +23,15 @@ public class Reports {
             System.out.println("5) Search by Vendor.");
             System.out.println("6) Custom Search.");
             System.out.println("7) Back to the previous screen.");
-            System.out.println("Please input a number 1 - 6");
-            int userChoice = scanner.nextInt();
+            System.out.println("Please input a number 1 - 7");
+            int userChoice = 0;
+            if(scanner.hasNextInt()){
+                userChoice = scanner.nextInt();
+            }
+            else{
+                System.out.println("Invalid input. Please try again.");
+                scanner.next();
+            }
 
             switch (userChoice) {
                 case 1:
@@ -66,8 +73,8 @@ public class Reports {
                 String[] fields = fileInput.split("\\|");
                 LocalDate date = LocalDate.parse(fields[0].trim());
                 LocalTime time = LocalTime.parse(fields[1].trim());
-                String description = fields[2];
-                String vendor = fields[3];
+                String description = fields[2].trim();
+                String vendor = fields[3].trim();
                 double amount = Double.parseDouble(fields[4].trim());
 
                 AccountingConstructors newTransaction = new AccountingConstructors(date, time, description, vendor, amount);

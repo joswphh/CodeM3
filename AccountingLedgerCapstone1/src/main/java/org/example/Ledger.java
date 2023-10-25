@@ -19,7 +19,14 @@ public class Ledger {
             System.out.println("4) Display Reports.");
             System.out.println("5) Back to home page. ");
             System.out.println("Please select the number 1 - 5.");
-            int userChoice = scanner.nextInt();
+            int userChoice = 0;
+            if(scanner.hasNextInt()){
+                userChoice = scanner.nextInt();
+            }
+            else{
+                System.out.println("Invalid input. Please try again.");
+                scanner.next();
+            }
 
             switch (userChoice) {
                 case 1:

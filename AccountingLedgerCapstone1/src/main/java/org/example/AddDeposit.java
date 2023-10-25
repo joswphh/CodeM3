@@ -7,11 +7,9 @@ import java.util.Scanner;
 public class AddDeposit {
     public static void addDeposit(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter date of transaction: YYYY-MM-DD.");
-        String date = scanner.nextLine();
+        String date = AccountingConstructors.getCorrectDate(scanner);
 
-        System.out.println("Enter time HH:MM.");
-        String time = scanner.nextLine();
+        String time = AccountingConstructors.getCorrectTime(scanner);
 
         System.out.println("Enter brief description of product.");
         String description = scanner.nextLine();
@@ -36,4 +34,6 @@ public class AddDeposit {
         System.out.println("Deposit has been made successfully. Thank you!");
     }
 
+
 }
+

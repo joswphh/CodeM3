@@ -1,12 +1,13 @@
 package org.example;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        try {
+
             Scanner scanner = new Scanner(System.in);
             boolean valid = false;
             while (!valid) {
-
+                try{
                 System.out.println("Hello welcome to JAM's Ledger");
                 System.out.println("What are you visiting us today for.");
                 System.out.println("1) Add deposit");
@@ -32,9 +33,14 @@ public class Main {
                         break;
                 }
             }
+                catch(NumberFormatException ex){
+                    System.out.println("Wrong input please try again.");
+                }
+                catch(InputMismatchException e){
+                    System.out.println("Please try again wrong input.");
+                    scanner.nextLine();
+                }
         }
-        catch(NumberFormatException ex){
-                System.out.println("Wrong input please try again.");
-            }
+
     }
 }
