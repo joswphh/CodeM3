@@ -1,12 +1,18 @@
 package org.example;
 
 import java.util.Scanner;
-
+/*
+Overall works well. My only thing is when I tried to check out a book that wasn't in the lineup,
+then it didn't give me a message at all. It'd be nice as the user to know I gave you an invalid id.
+Also, small quibble, but if the book is checked out, the checkedOutTo has to be blank since technically
+no one has it, it's on the shelf.
+ */
 public class Main {
     public static void main(String[] args) {
         Book[] library = new Book[20];
 
-        library[0] = new Book(1235, "3265", "Building Cars", false, "Author A");
+        //So a book cannot be checked out to someone if isCheckedOut is false.
+        library[0] = new Book(1235, "3265", "Building Cars");
         library[1] = new Book(4567, "289", "Cooking Recipes", false, "Author B");
         library[2] = new Book(7890, "543", "Java Programming", false, "Author C");
         library[3] = new Book(9876, "123", "History of Art", false, "Author D");
@@ -55,7 +61,7 @@ public class Main {
 
     }
 
-
+//good breaking things down into methods and using switch case for readability
     public static void showAvailableBooks(Book[] books) {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
