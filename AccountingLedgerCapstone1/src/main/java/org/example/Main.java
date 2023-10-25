@@ -1,7 +1,5 @@
 package org.example;
-
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         try {
@@ -9,7 +7,7 @@ public class Main {
             boolean valid = false;
             while (!valid) {
 
-                System.out.println("Hello welcome to JAM's bank");
+                System.out.println("Hello welcome to JAM's Ledger");
                 System.out.println("What are you visiting us today for.");
                 System.out.println("1) Add deposit");
                 System.out.println("2) Make payment (Debit)");
@@ -26,7 +24,7 @@ public class Main {
                         MakePayment.makePayment();
                         break;
                     case 3:
-                            Ledger.ledger();
+                        Ledger.ledger();
                         break;
                     case 4:
                         System.out.println("See you next time. Have a good day!");

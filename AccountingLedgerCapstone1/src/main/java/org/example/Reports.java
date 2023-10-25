@@ -21,7 +21,8 @@ public class Reports {
             System.out.println("3) Search by Year to Date.");
             System.out.println("4) Search by Previous Year.");
             System.out.println("5) Search by Vendor.");
-            System.out.println("6) Back to the previous screen.");
+            System.out.println("6) Custom Search.");
+            System.out.println("7) Back to the previous screen.");
             System.out.println("Please input a number 1 - 6");
             int userChoice = scanner.nextInt();
 
@@ -39,9 +40,12 @@ public class Reports {
                     previousYear();
                     break;
                 case 5:
-
+                    searchByVendor();
                     break;
                 case 6:
+                    customSearch();
+                    break;
+                case 7:
                     System.out.println("Going back to the previous screen.");
                     valid = true;
                     break;
@@ -60,11 +64,11 @@ public class Reports {
             String fileInput;
             while ((fileInput = bf.readLine()) != null) {
                 String[] fields = fileInput.split("\\|");
-                LocalDate date = LocalDate.parse(fields[0]);
-                LocalTime time = LocalTime.parse(fields[1]);
+                LocalDate date = LocalDate.parse(fields[0].trim());
+                LocalTime time = LocalTime.parse(fields[1].trim());
                 String description = fields[2];
                 String vendor = fields[3];
-                double amount = Double.parseDouble(fields[4]);
+                double amount = Double.parseDouble(fields[4].trim());
 
                 AccountingConstructors newTransaction = new AccountingConstructors(date, time, description, vendor, amount);
                 transaction.add(newTransaction);
@@ -75,7 +79,6 @@ public class Reports {
         }
         return transaction;
     }
-
     public static void sortTransactionsByDate() {
         //declaring the list-
         List<AccountingConstructors> transactions = transactions();
@@ -84,7 +87,7 @@ public class Reports {
         transactions.sort(Comparator.comparing(AccountingConstructors::getDate));
         // Display the sorted transactions
         for (AccountingConstructors transaction : transactions) {
-            System.out.println(transaction); // Assuming you have a toString method in AccountingConstructors
+            System.out.println(transaction);
         }
     }
 
@@ -149,10 +152,79 @@ public class Reports {
     }
 
     public static void searchByVendor(){
+        List<AccountingConstructors> transactions = transactions();
+        Scanner scanner = new Scanner(System.in);
         System.out.println("What vendor would you like to search by");
+        String userVendor = scanner.nextLine();
+        boolean equals = false;
+
+        for(AccountingConstructors transaction : transactions){
+            if(userVendor.equalsIgnoreCase(transaction.getVendor())){
+                System.out.println(transaction);
+                equals = true;
+            }
+            else if(!equals){
+                System.out.println("Vendor not found");
+            }
+        }
     }
 
+    public static void customSearch(){
+        System.out.println("Enter the following information please.");
+        Scanner scanner = new Scanner(System.in);
 
+        LocalDate userStartDate = null;
+        LocalDate userEndDate = null;
+        String userDescription = null;
+        String userVendor = null;
+        double userAmount = 0.0;
+
+        System.out.println("Enter the start date of your search in format YYYY-MM-DD");
+        String startDateInput = scanner.nextLine();
+        if(!startDateInput.isEmpty()){
+            userStartDate = LocalDate.parse(startDateInput);
+        }
+        System.out.println("Enter the start end of your search in format YYYY-MM-DD");
+        String endDateInput = scanner.nextLine();
+        if(!endDateInput.isEmpty()){
+            userEndDate = LocalDate.parse(endDateInput);
+        }
+        System.out.println("Enter the product description.");
+        String descriptionInput = scanner.nextLine();
+        if(!descriptionInput.isEmpty()){
+            userDescription = descriptionInput;
+        }
+        System.out.println("Enter the vendor.");
+        String vendorInput = scanner.nextLine();
+        if(!vendorInput.isEmpty()){
+            userVendor = vendorInput;
+        }
+        System.out.println("Enter the amount");
+        String amountInput = scanner.nextLine();
+        if(!amountInput.isEmpty()){
+            try{
+                userAmount = Double.parseDouble(amountInput);
+            }catch (NumberFormatException ex){
+                System.out.println("Invalid format. Please try again.");
+            }
+        }
+        performCustomSearch(userStartDate,userEndDate,userDescription,userVendor,userAmount);
+    }
+    public static void performCustomSearch(LocalDate startDate, LocalDate endDate, String description, String vendor, double amount) {
+        List<AccountingConstructors> transactions = transactions();
+        List<AccountingConstructors> filteredList = transactions.stream()
+                .filter(transaction -> (startDate == null || transaction.getDate().isAfter(startDate) || transaction.getDate().isEqual(startDate)))
+                .filter(transaction -> (endDate == null || transaction.getDate().isBefore(endDate) || transaction.getDate().isEqual(endDate)))
+                .filter(transaction -> (description == null || transaction.getDescription().equalsIgnoreCase(description)))
+                .filter(transaction -> (vendor == null || transaction.getVendor().equalsIgnoreCase(vendor)))
+                .filter(transaction -> (amount == 0.0 || transaction.getAmount() == amount))
+                .toList();
+
+        // Display the filtered list
+        for (AccountingConstructors transaction : filteredList) {
+            System.out.println(transaction);
+        }
+    }
 }
 
 
