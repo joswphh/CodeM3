@@ -160,16 +160,16 @@ public class Reports {
         Scanner scanner = new Scanner(System.in);
         System.out.println("What vendor would you like to search by");
         String userVendor = scanner.nextLine();
-        boolean equals = false;
+        boolean found = false;
 
         for(AccountingConstructors transaction : transactions){
             if(userVendor.equalsIgnoreCase(transaction.getVendor())){
                 System.out.println(transaction);
-                equals = true;
+                found = true;
             }
-            else if(!equals){
-                System.out.println("Vendor not found");
             }
+        if(!found){
+            System.out.println("Vendor not found.");
         }
     }
 
