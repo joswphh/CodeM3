@@ -54,7 +54,7 @@ public class Ledger {
             BufferedReader transactionReader = new BufferedReader(new FileReader("src/main/resources/transaction.csv"));
             String line;
             while ((line = transactionReader.readLine()) != null) {
-                System.out.println(line + "\n");
+                System.out.println(line);
             }
             transactionReader.close();
         } catch (IOException ex) {

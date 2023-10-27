@@ -17,7 +17,7 @@ public class AddDeposit {
         System.out.println("Enter the vendor name.");
         String vendorName = scanner.nextLine();
 
-        System.out.println("Enter deposit amount: ");
+        System.out.println("Enter amount: ");
         double price = scanner.nextDouble();
         scanner.nextLine();
         price = Math.abs(price);
