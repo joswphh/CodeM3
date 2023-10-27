@@ -174,7 +174,7 @@ public class Reports {
     }
 
     public static void customSearch(){
-        System.out.println("Enter the following information please.");
+        System.out.println("Enter the following information please. Press enter to skip anything you do not want to search by.");
         Scanner scanner = new Scanner(System.in);
 
         LocalDate userStartDate = null;
