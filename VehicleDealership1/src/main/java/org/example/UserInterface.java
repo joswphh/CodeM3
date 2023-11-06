@@ -241,13 +241,16 @@ public class UserInterface {
         }
     }
     private void processAddVehicleRequest(){
-        System.out.println("Adding a new vehicle");
+
+        System.out.println("Adding a new vehicle:");
 
         System.out.print("Enter VIN: ");
-        int vin = Integer.parseInt(scanner.nextLine());
+        int vin = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.print("Enter Year: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        int year = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.print("Enter Make: ");
         String make = scanner.nextLine();
@@ -262,13 +265,16 @@ public class UserInterface {
         String vehicleType = scanner.nextLine();
 
         System.out.print("Enter Odometer: ");
-        int odometer = Integer.parseInt(scanner.nextLine());
+        int odometer = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.print("Enter Price: ");
-        double price = Double.parseDouble(scanner.nextLine());
+        double price = scanner.nextDouble();
+        scanner.nextLine();
 
         Vehicle newVehicle = new Vehicle(vin, year, make, model, color, vehicleType, odometer, price);
         dealership.addVehicle(newVehicle);
+        DealershipFileManager.saveDealership(newVehicle);
         System.out.println("New vehicle added successfully!");
 
     }

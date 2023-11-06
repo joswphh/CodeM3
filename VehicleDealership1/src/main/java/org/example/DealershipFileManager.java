@@ -42,19 +42,21 @@ public class DealershipFileManager {
         return dealership;
     }
 
-    public void saveDealership(Dealership dealership){
-        try (FileWriter writer = new FileWriter(String.valueOf(new FileWriter("src/main/resources/inventory.csv")))) {
-            for (Vehicle vehicle : dealership.getAllVehicles()) {
-                String csvLine = vehicle.getVin() + "|" +
-                        vehicle.getYear() + "|" +
-                        vehicle.getMake() + "|" +
-                        vehicle.getModel() + "|" +
-                        vehicle.getColor() + "|" +
-                        vehicle.getVehicleType() + "|" +
-                        vehicle.getOdometer() + "|" +
-                        vehicle.getPrice();
-                writer.write(csvLine + System.lineSeparator());
-            }
+    public static void saveDealership(Vehicle vehicle){
+        try {
+            FileWriter writer = new FileWriter("src/main/resources/inventory.csv", true); // Open in append mode
+
+            String csvLine = vehicle.getVin() + "|" +
+                    vehicle.getYear() + "|" +
+                    vehicle.getMake() + "|" +
+                    vehicle.getModel() + "|" +
+                    vehicle.getColor() + "|" +
+                    vehicle.getVehicleType() + "|" +
+                    vehicle.getOdometer() + "|" +
+                    vehicle.getPrice();
+
+            writer.write(csvLine + System.lineSeparator());
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error writing to the file.");

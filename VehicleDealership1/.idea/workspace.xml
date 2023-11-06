@@ -10,16 +10,6 @@
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@119d7047" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@23fc625e" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@3b9a45b3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@3f99bd52" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@448139f0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@4c873330" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@53d8d10a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@65ab7765" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@6ce253f1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java.io.FileWriter@e9e54c2" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Dealership.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/DealershipFileManager.java" afterDir="false" />
@@ -43,27 +33,27 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2Xh6n8Ypwl9AWAqbcnXxp3SASlP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
