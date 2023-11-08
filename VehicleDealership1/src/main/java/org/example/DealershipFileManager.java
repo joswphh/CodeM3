@@ -9,8 +9,11 @@ import java.util.Scanner;
 
 public class DealershipFileManager {
 
+    //I think you should have a private constructor and make these methods static
+    //One file manager is no different than the next
     public Dealership getDealership() {
         Dealership dealership = new Dealership("JAM's Dealership", "1234 somewhere st.", "124-123-1456");
+        //How would a dealership have vehicles if you haven't loaded them from the file yet?
         ArrayList<Vehicle> vehicles = (ArrayList<Vehicle>) dealership.getAllVehicles();
 
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/inventory.csv"))) {
@@ -45,7 +48,7 @@ public class DealershipFileManager {
     public static void saveDealership(Vehicle vehicle){
         try {
             FileWriter writer = new FileWriter("src/main/resources/inventory.csv", true); // Open in append mode
-
+            //String.format might be easier to type but this is fine too
             String csvLine = vehicle.getVin() + "|" +
                     vehicle.getYear() + "|" +
                     vehicle.getMake() + "|" +
@@ -55,6 +58,7 @@ public class DealershipFileManager {
                     vehicle.getOdometer() + "|" +
                     vehicle.getPrice();
 
+            //Look at you using System.lineSeparator. Show off :P
             writer.write(csvLine + System.lineSeparator());
             writer.close();
         } catch (IOException e) {

@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class UserInterface {
     Scanner scanner = new Scanner(System.in);
     Dealership dealership = new Dealership("JAM's Dealership", "1234 somewhere st.", "124-123-1456");
+    //Good, you're using init correctly.
     public void user(){
         init();
     }
