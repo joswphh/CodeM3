@@ -16,6 +16,8 @@ public class Dealership{
         this.phone = phone;
         this.inventory = new ArrayList<>();
     }
+
+    //Look at you using streams and filters, and the List interface, show off :P
     public List<Vehicle> getVehicleByPrice(double min, double max){
         return inventory.stream()
                 .filter(vehicle -> vehicle.getPrice() >= min && vehicle.getPrice() <= max)
