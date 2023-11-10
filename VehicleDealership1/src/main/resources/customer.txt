@@ -1,1 +1,2 @@
-Date: 11/01/2023|Name: Joseph Medrano|Email: medranojoseph82@gmail.com|54321|2024|Ford|Mustang GT|car|Black|SalesTax: 3000.0|RecordingFee: 100.0|ProcessingFee: 495.0|Total: 68945.36292578946|Financed: yes|MonthlyPayment: 1436.361727620614
+SaleType: SALE|Date: 11/01/2023|Name: joseph medrano|Email: medranojoseph82@gmail.com|VIN: 54321|Year: 2024|Make: Ford|Model: Muatang GT|Type: car|Color: Black|SalesTax: 3000.00|RecordingFee: 100.00|ProcessingFee: 495.00|Total: 68945.36|Financed: yes|MonthlyPayment: 1436.36
+SaleType: LEASE|Date: 11/02/2023|Name: mia romero|Email: miabigballer69@rich.com|VIN: 98745|Year: 2024|Make: Lambo|Model: Aventador SVJ|Type: car|Color: Red/gold|Total: 484500.00|EndingValue: 425000.00|LeaseFee: 59500.00|MonthlyPayment: 13458.33

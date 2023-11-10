@@ -1,7 +1,6 @@
 package org.example;
 
-import javax.imageio.stream.ImageInputStream;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -326,40 +325,33 @@ public class UserInterface {
 
     }
 
-    /*public void getCustomerInfo(){
-        System.out.println("Entering customer information");
-        scanner.nextLine();
-        System.out.println("Please enter the date.");
-        String date = scanner.nextLine();
-        System.out.println("Please enter your name");
-        String customerName = scanner.nextLine();
-        System.out.println("Please enter your email");
-        String customerEmail = scanner.nextLine();
-    }*/
 
     private void processBuyVehicle() {
         System.out.println("You are purchasing a vehicle");
         boolean isFinanced = false;
-        // vinFound avoid to purchase if vin is not found
+        // vinFound avoids purchasing if VIN is not found
         boolean vinFound = false;
         String choice = null;
-        System.out.println("Please enter the vin of the car you would like to buy");
+
+        System.out.println("Please enter the VIN of the car you would like to buy");
         if (scanner.hasNextInt()) {
             int vinToSearchBy = scanner.nextInt();
-            boolean removed = false;
-            scanner.nextLine();
-            System.out.println("Would you like to finance. (Yes / No)");
+            scanner.nextLine(); // consume the newline
+
+            System.out.println("Would you like to finance? (Yes / No)");
             if (scanner.hasNextLine()) {
                 choice = scanner.nextLine();
                 if (choice.equalsIgnoreCase("yes")) {
                     isFinanced = true;
-                } else if (choice.equalsIgnoreCase("No")) {
+                } else if (choice.equalsIgnoreCase("no")) {
                     isFinanced = false;
                 } else {
-                    System.out.println("Wrong answer. Please enter yes or no.");
+                    System.out.println("Invalid answer. Please enter yes or no.");
+                    return; // return to the main screen if the answer is invalid
                 }
             }
-            System.out.println("Entering customer information");
+
+            System.out.println("PLease enter the following information");
             System.out.println("Please enter the date.");
             String date = scanner.nextLine();
             System.out.println("Please enter your name");
@@ -376,45 +368,44 @@ public class UserInterface {
                     salesContract.getMonthlyPayment();
                     System.out.printf("Your Total Price will be: %.2f %n", salesContract.getTotalPrice());
                     System.out.printf("Your monthly payment will be %.2f %n", salesContract.getMonthlyPayment());
-                } else {
-                    System.out.println("Vin not found. Returning to main screen.");
-                    break;
-                }
-            }
-            if (vinFound) {
-                System.out.println("Would you like to buy it?");
-                if (scanner.hasNextLine()) {
-                    String buyChoice = scanner.nextLine();
-                    if (buyChoice.equalsIgnoreCase("yes")) {
-                        for (Vehicle vehicle : vehicles) {
-                            if (vehicle.getVin() == vinToSearchBy) {
-                                SalesContract salesContract = new SalesContract(date, customerName, customerEmail, vehicle, isFinanced);
-                                dealership.removeVehicle(vehicle);
-                                System.out.println("Removed vehicle with VIN " + vinToSearchBy);
-                                ContractFileManager.writeCustomerInfoToFile("SALE", date, customerName, customerEmail, vehicle, salesContract.salesTax(), salesContract.recordingFee(),
-                                        salesContract.processingFee(), salesContract.getTotalPrice(), choice, salesContract.getMonthlyPayment());
-                                System.out.println("Car successfully purchased. CONGRATS!!!");
-                            }
+
+                    System.out.println("Would you like to buy it?");
+                    if (scanner.hasNextLine()) {
+                        String buyChoice = scanner.nextLine();
+                        if (buyChoice.equalsIgnoreCase("yes")) {
+                            dealership.removeVehicle(vehicle);
+                            System.out.println("Removed vehicle with VIN " + vinToSearchBy);
+                            ContractFileManager.writeCustomerInfoToFile("SALE", date, customerName, customerEmail, vehicle, salesContract.salesTax(), salesContract.recordingFee(),
+                                    salesContract.processingFee(), salesContract.getTotalPrice(), choice, salesContract.getMonthlyPayment());
+                            System.out.println("Car successfully purchased. CONGRATS!!!");
+                        } else {
+                            System.out.println("Contract Rejected. Returning back to the main screen.");
                         }
                     }
-                } else {
-                    System.out.println("Contract Rejected. Returning back to main screen.");
+                    break; // exit the loop once the VIN is found
                 }
             }
+
+            if (!vinFound) {
+                System.out.println("Vin not found. Returning to the main screen.");
+            }
         } else {
-            System.out.println("Invalid input please try again.");
+            System.out.println("Invalid input. Please enter a valid VIN.");
         }
     }
 
+
     public void processLeaseVehicle() {
-        boolean isFinanced = true;
         boolean vinFound = false;
+
         System.out.println("You are leasing a vehicle");
-        System.out.println("Enter the vin of the vehicle");
+        System.out.println("Enter the VIN of the vehicle");
+
         if (scanner.hasNextInt()) {
             int vinToSearchBy = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Entering customer information");
+            scanner.nextLine(); // consume the newline
+
+            System.out.println("Please enter the following information.");
             System.out.println("Please enter the date.");
             String date = scanner.nextLine();
             System.out.println("Please enter your name");
@@ -423,41 +414,42 @@ public class UserInterface {
             String customerEmail = scanner.nextLine();
 
             List<Vehicle> vehicles = dealership.getAllVehicles();
-            for (Vehicle vehicle : vehicles) {
+            Iterator<Vehicle> iterator = vehicles.iterator();
+
+            while (iterator.hasNext()) {
+                Vehicle vehicle = iterator.next();
+
                 if (vinToSearchBy == vehicle.getVin()) {
                     vinFound = true;
                     LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, vehicle);
                     leaseContract.getTotalPrice();
                     leaseContract.getMonthlyPayment();
+
                     System.out.printf("Your total price will be: %.2f %n", leaseContract.getTotalPrice());
                     System.out.printf("Your monthly payment will be: %.2f %n", leaseContract.getMonthlyPayment());
-                } else {
-                    System.out.println("Vin not found. Returning to main screen.");
-                }
-            }
-            if (vinFound) {
-                System.out.println("Would you like to lease the vehicle? (Yes / No)");
-                if (scanner.hasNextLine()) {
-                    String userLeaseChoice = scanner.nextLine();
-                    for (Vehicle vehicle : vehicles) {
-                        if (vinToSearchBy == vehicle.getVin()) {
-                            LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, vehicle);
-                            dealership.removeVehicle(vehicle);
+
+                    System.out.println("Would you like to lease the vehicle? (Yes / No)");
+                    if (scanner.hasNextLine()) {
+                        String userLeaseChoice = scanner.nextLine();
+                        if (userLeaseChoice.equalsIgnoreCase("yes")) {
                             ContractFileManager.writeCustomerLease("LEASE", date, customerName, customerEmail, vehicle, leaseContract.getTotalPrice(),
                                     leaseContract.expectedEndingValue(), leaseContract.leaseFee(), leaseContract.getMonthlyPayment());
-
+                            System.out.println("Car successfully leased. CONGRATS!!!");
+                            iterator.remove(); // remove the current vehicle using iterator
                         } else {
-                            System.out.println("Lease Declined. Return to main page");
+                            System.out.println("Lease Declined. Return to the main page");
                         }
                     }
-                } else {
-                    System.out.println("Contract Rejected. Returning back to main screen.");
                 }
             }
+
+            if (!vinFound) {
+                System.out.println("Vin not found. Returning to the main screen.");
+            }
         } else {
-            System.out.println("Invalid input please try again.");
+            System.out.println("Invalid input. Please enter a valid VIN.");
         }
-
-
     }
+
+
 }
