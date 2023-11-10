@@ -1,0 +1,1 @@
+Date: 11/01/2023|Name: Joseph Medrano|Email: medranojoseph82@gmail.com|54321|2024|Ford|Mustang GT|car|Black|SalesTax: 3000.0|RecordingFee: 100.0|ProcessingFee: 495.0|Total: 68945.36292578946|Financed: yes|MonthlyPayment: 1436.361727620614

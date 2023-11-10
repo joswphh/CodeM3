@@ -8,29 +8,31 @@ import java.util.Scanner;
 public class UserInterface {
     Scanner scanner = new Scanner(System.in);
     Dealership dealership = new Dealership("JAM's Dealership", "1234 somewhere st.", "124-123-1456");
-    public void user(){
+
+    public void user() {
         init();
     }
-    private void init(){
+
+    private void init() {
         DealershipFileManager dealershipFileManager = new DealershipFileManager();
         this.dealership = dealershipFileManager.getDealership();
     }
-    public void userInterface(){
+
+    public void userInterface() {
         init();
         boolean valid = false;
         Scanner scanner = new Scanner(System.in);
 
-        while(!valid){
+        while (!valid) {
             display();
             int userChoice = 0;
-            if(scanner.hasNextInt()){
+            if (scanner.hasNextInt()) {
                 userChoice = scanner.nextInt();
-            }
-            else{
+            } else {
                 System.out.println("Please try again. Incorrect choice.");
                 scanner.nextLine();
             }
-            switch(userChoice){
+            switch (userChoice) {
                 case 1:
                     processByPriceRequest();
                     break;
@@ -54,9 +56,19 @@ public class UserInterface {
                     break;
                 case 8:
                     processAddVehicleRequest();
+                    DealershipFileManager.saveDealership(dealership);
                     break;
                 case 9:
                     processRemoveVehicleRequest();
+                    DealershipFileManager.saveDealership(dealership);
+                    break;
+                case 10:
+                    processBuyVehicle();
+                    DealershipFileManager.saveDealership(dealership);
+                    break;
+                case 11:
+                    processLeaseVehicle();
+                    DealershipFileManager.saveDealership(dealership);
                     break;
                 case 99:
                     System.out.println("Thank you see you later.");
@@ -66,7 +78,8 @@ public class UserInterface {
             }
         }
     }
-    private void display(){
+
+    private void display() {
         System.out.println("1) Find vehicles within a price range.");
         System.out.println("2) Find vehicle by make / model.");
         System.out.println("3) Find vehicle by year range.");
@@ -76,11 +89,13 @@ public class UserInterface {
         System.out.println("7) List all vehicles.");
         System.out.println("8) Add vehicle.");
         System.out.println("9) Remove vehicle.");
+        System.out.println("10) Buy a Vehicle");
+        System.out.println("11) Lease a vehicle");
         System.out.println("99) Exit");
         System.out.print("Please enter your choice: ");
     }
 
-    private void displayVehicles(List<Vehicle> vehicles){
+    private void displayVehicles(List<Vehicle> vehicles) {
         for (Vehicle vehicle : vehicles) {
             System.out.println("VIN: " + vehicle.getVin());
             System.out.println("Year: " + vehicle.getYear());
@@ -94,7 +109,8 @@ public class UserInterface {
         }
 
     }
-    private void processAllVehiclesRequest(){
+
+    private void processAllVehiclesRequest() {
         List<Vehicle> vehicles = dealership.getAllVehicles();
         System.out.println("Number of vehicles: " + vehicles.size());
         displayVehicles(vehicles);
@@ -112,66 +128,68 @@ public class UserInterface {
         scanner.nextLine();
 
         System.out.println("Enter maximum price.");
-        if(scanner.hasNextDouble()){
+        if (scanner.hasNextDouble()) {
             maxPrice = scanner.nextDouble();
-        } else{
+        } else {
             System.out.println("Invalid input. Please enter a valid number.");
         }
         List<Vehicle> vehicles = dealership.getVehicleByPrice(minPrice, maxPrice);
 
-        if(vehicles.isEmpty()){
+        if (vehicles.isEmpty()) {
             System.out.println("No vehicles found within this price range.");
-        } else{
+        } else {
             System.out.println("Vehicles within price range.");
             displayVehicles(vehicles);
         }
 
     }
-    private void processByMakeModelRequest(){
+
+    private void processByMakeModelRequest() {
         String make = null;
         String model = null;
         System.out.println("Searching by make and model.");
 
         System.out.println("Enter the make please.");
-        if(scanner.hasNextLine()){
+        if (scanner.hasNextLine()) {
             make = scanner.nextLine();
-        } else{
+        } else {
             System.out.println("Invalid input. Please enter a valid make.");
         }
 
         System.out.println("Enter the model please.");
-        if(scanner.hasNextLine()){
+        if (scanner.hasNextLine()) {
             model = scanner.nextLine();
         } else {
             System.out.println("Invalid input. Please enter a valid model.");
         }
         List<Vehicle> vehicles = dealership.getVehicles(make, model);
-        if(vehicles.isEmpty()){
+        if (vehicles.isEmpty()) {
             System.out.println("No vehicle of this make and model found.");
-        } else{
+        } else {
             System.out.println("Vehicles with that make and model.");
             displayVehicles(vehicles);
         }
 
     }
-    private void processByYearRequest(){
+
+    private void processByYearRequest() {
         double minYear = 0;
         double maxYear = 0;
         System.out.println("Please enter the minimum year.");
-        if(scanner.hasNextDouble()){
+        if (scanner.hasNextDouble()) {
             minYear = scanner.nextDouble();
-        }else{
+        } else {
             System.out.println("Invalid input. Please enter a valid number.");
         }
 
         System.out.println("Please enter the max year");
-        if(scanner.hasNextDouble()){
+        if (scanner.hasNextDouble()) {
             maxYear = scanner.nextDouble();
-        } else{
+        } else {
             System.out.println("Invalid input. Please enter a valid number.");
         }
         List<Vehicle> vehicles = dealership.getByYear(minYear, maxYear);
-        if(vehicles.isEmpty()){
+        if (vehicles.isEmpty()) {
             System.out.println("No vehicles within these years found.");
         } else {
             System.out.println("Vehicles within these years found.");
@@ -179,52 +197,55 @@ public class UserInterface {
         }
 
     }
-    private void processByColorRequest(){
-    String color = null;
+
+    private void processByColorRequest() {
+        String color = null;
         System.out.println("What color would you like to search by?");
-        if(scanner.hasNextLine()){
+        if (scanner.hasNextLine()) {
             color = scanner.nextLine();
-        } else{
+        } else {
             System.out.println("Invalid input. Please enter a valid color.");
         }
         List<Vehicle> vehicles = dealership.getByColor(color);
-        if(vehicles.isEmpty()){
+        if (vehicles.isEmpty()) {
             System.out.println("There is no vehicles with this color.");
-        }else{
+        } else {
             System.out.printf("Vehicles with %s color: %n", color);
             displayVehicles(vehicles);
         }
     }
-    private void processByMileageRequest(){
+
+    private void processByMileageRequest() {
         double minMiles = 0;
         double maxMiles = 0;
 
         System.out.println("What is the minimum number of miles?");
-        if(scanner.hasNextDouble()){
+        if (scanner.hasNextDouble()) {
             minMiles = scanner.nextDouble();
-        } else{
+        } else {
             System.out.println("Invalid input. Please enter a valid number.");
         }
 
         System.out.println("What is the maximum number of miles?");
-        if(scanner.hasNextDouble()){
+        if (scanner.hasNextDouble()) {
             maxMiles = scanner.nextDouble();
-        } else{
+        } else {
             System.out.println("Invalid input. Please enter a valid number.");
         }
         List<Vehicle> vehicles = dealership.getVehicleByMileage(minMiles, maxMiles);
-        if(vehicles.isEmpty()){
+        if (vehicles.isEmpty()) {
             System.out.println("There are no vehicles with those miles");
-        } else{
+        } else {
             System.out.println("Here are the vehicles with those miles");
             displayVehicles(vehicles);
         }
 
     }
-    private void processByVehicleTypeRequest(){
+
+    private void processByVehicleTypeRequest() {
         String vehicleType = null;
         System.out.println("What is the vehicle type you would like to search by?");
-        if(scanner.hasNextLine()){
+        if (scanner.hasNextLine()) {
             vehicleType = scanner.nextLine();
         } else {
             System.out.println("Invalid input. Please enter a valid vehicle type.");
@@ -232,15 +253,15 @@ public class UserInterface {
         System.out.println(vehicleType);
 
         List<Vehicle> vehicles = dealership.getVehicleByType(vehicleType);
-        if(vehicles.isEmpty()){
+        if (vehicles.isEmpty()) {
             System.out.println("There are no vehicles of that type.");
-        }
-        else{
+        } else {
             System.out.println("Here are the vehicles of that type.");
             displayVehicles(vehicles);
         }
     }
-    private void processAddVehicleRequest(){
+
+    private void processAddVehicleRequest() {
 
         System.out.println("Adding a new vehicle:");
 
@@ -274,11 +295,11 @@ public class UserInterface {
 
         Vehicle newVehicle = new Vehicle(vin, year, make, model, color, vehicleType, odometer, price);
         dealership.addVehicle(newVehicle);
-        DealershipFileManager.saveDealership(newVehicle);
         System.out.println("New vehicle added successfully!");
 
     }
-    private void processRemoveVehicleRequest(){
+
+    private void processRemoveVehicleRequest() {
         System.out.println("Removing a vehicle.");
 
         System.out.println("Enter the vin of the car you would like to remove.");
@@ -286,7 +307,8 @@ public class UserInterface {
             int vinToRemove = scanner.nextInt();
             boolean removed = false;
 
-            for (Vehicle vehicle : dealership.getAllVehicles()) {
+            List<Vehicle> vehicles = dealership.getAllVehicles();
+            for (Vehicle vehicle : vehicles) {
                 if (vehicle.getVin() == vinToRemove) {
                     dealership.removeVehicle(vehicle);
                     System.out.println("Removed vehicle with VIN " + vinToRemove);
@@ -304,6 +326,138 @@ public class UserInterface {
 
     }
 
+    /*public void getCustomerInfo(){
+        System.out.println("Entering customer information");
+        scanner.nextLine();
+        System.out.println("Please enter the date.");
+        String date = scanner.nextLine();
+        System.out.println("Please enter your name");
+        String customerName = scanner.nextLine();
+        System.out.println("Please enter your email");
+        String customerEmail = scanner.nextLine();
+    }*/
+
+    private void processBuyVehicle() {
+        System.out.println("You are purchasing a vehicle");
+        boolean isFinanced = false;
+        // vinFound avoid to purchase if vin is not found
+        boolean vinFound = false;
+        String choice = null;
+        System.out.println("Please enter the vin of the car you would like to buy");
+        if (scanner.hasNextInt()) {
+            int vinToSearchBy = scanner.nextInt();
+            boolean removed = false;
+            scanner.nextLine();
+            System.out.println("Would you like to finance. (Yes / No)");
+            if (scanner.hasNextLine()) {
+                choice = scanner.nextLine();
+                if (choice.equalsIgnoreCase("yes")) {
+                    isFinanced = true;
+                } else if (choice.equalsIgnoreCase("No")) {
+                    isFinanced = false;
+                } else {
+                    System.out.println("Wrong answer. Please enter yes or no.");
+                }
+            }
+            System.out.println("Entering customer information");
+            System.out.println("Please enter the date.");
+            String date = scanner.nextLine();
+            System.out.println("Please enter your name");
+            String customerName = scanner.nextLine();
+            System.out.println("Please enter your email");
+            String customerEmail = scanner.nextLine();
+
+            List<Vehicle> vehicles = dealership.getAllVehicles();
+            for (Vehicle vehicle : vehicles) {
+                if (vinToSearchBy == vehicle.getVin()) {
+                    vinFound = true;
+                    SalesContract salesContract = new SalesContract(date, customerName, customerEmail, vehicle, isFinanced);
+                    salesContract.getTotalPrice();
+                    salesContract.getMonthlyPayment();
+                    System.out.printf("Your Total Price will be: %.2f %n", salesContract.getTotalPrice());
+                    System.out.printf("Your monthly payment will be %.2f %n", salesContract.getMonthlyPayment());
+                } else {
+                    System.out.println("Vin not found. Returning to main screen.");
+                    break;
+                }
+            }
+            if (vinFound) {
+                System.out.println("Would you like to buy it?");
+                if (scanner.hasNextLine()) {
+                    String buyChoice = scanner.nextLine();
+                    if (buyChoice.equalsIgnoreCase("yes")) {
+                        for (Vehicle vehicle : vehicles) {
+                            if (vehicle.getVin() == vinToSearchBy) {
+                                SalesContract salesContract = new SalesContract(date, customerName, customerEmail, vehicle, isFinanced);
+                                dealership.removeVehicle(vehicle);
+                                System.out.println("Removed vehicle with VIN " + vinToSearchBy);
+                                ContractFileManager.writeCustomerInfoToFile("SALE", date, customerName, customerEmail, vehicle, salesContract.salesTax(), salesContract.recordingFee(),
+                                        salesContract.processingFee(), salesContract.getTotalPrice(), choice, salesContract.getMonthlyPayment());
+                                System.out.println("Car successfully purchased. CONGRATS!!!");
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("Contract Rejected. Returning back to main screen.");
+                }
+            }
+        } else {
+            System.out.println("Invalid input please try again.");
+        }
+    }
+
+    public void processLeaseVehicle() {
+        boolean isFinanced = true;
+        boolean vinFound = false;
+        System.out.println("You are leasing a vehicle");
+        System.out.println("Enter the vin of the vehicle");
+        if (scanner.hasNextInt()) {
+            int vinToSearchBy = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("Entering customer information");
+            System.out.println("Please enter the date.");
+            String date = scanner.nextLine();
+            System.out.println("Please enter your name");
+            String customerName = scanner.nextLine();
+            System.out.println("Please enter your email");
+            String customerEmail = scanner.nextLine();
+
+            List<Vehicle> vehicles = dealership.getAllVehicles();
+            for (Vehicle vehicle : vehicles) {
+                if (vinToSearchBy == vehicle.getVin()) {
+                    vinFound = true;
+                    LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, vehicle);
+                    leaseContract.getTotalPrice();
+                    leaseContract.getMonthlyPayment();
+                    System.out.printf("Your total price will be: %.2f %n", leaseContract.getTotalPrice());
+                    System.out.printf("Your monthly payment will be: %.2f %n", leaseContract.getMonthlyPayment());
+                } else {
+                    System.out.println("Vin not found. Returning to main screen.");
+                }
+            }
+            if (vinFound) {
+                System.out.println("Would you like to lease the vehicle? (Yes / No)");
+                if (scanner.hasNextLine()) {
+                    String userLeaseChoice = scanner.nextLine();
+                    for (Vehicle vehicle : vehicles) {
+                        if (vinToSearchBy == vehicle.getVin()) {
+                            LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, vehicle);
+                            dealership.removeVehicle(vehicle);
+                            ContractFileManager.writeCustomerLease("LEASE", date, customerName, customerEmail, vehicle, leaseContract.getTotalPrice(),
+                                    leaseContract.expectedEndingValue(), leaseContract.leaseFee(), leaseContract.getMonthlyPayment());
+
+                        } else {
+                            System.out.println("Lease Declined. Return to main page");
+                        }
+                    }
+                } else {
+                    System.out.println("Contract Rejected. Returning back to main screen.");
+                }
+            }
+        } else {
+            System.out.println("Invalid input please try again.");
+        }
 
 
+    }
 }

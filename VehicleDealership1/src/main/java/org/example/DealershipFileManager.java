@@ -11,7 +11,6 @@ public class DealershipFileManager {
 
     public Dealership getDealership() {
         Dealership dealership = new Dealership("JAM's Dealership", "1234 somewhere st.", "124-123-1456");
-        ArrayList<Vehicle> vehicles = (ArrayList<Vehicle>) dealership.getAllVehicles();
 
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/inventory.csv"))) {
             String fileInput;
@@ -42,20 +41,22 @@ public class DealershipFileManager {
         return dealership;
     }
 
-    public static void saveDealership(Vehicle vehicle){
+    public static void saveDealership(Dealership dealership){
         try {
-            FileWriter writer = new FileWriter("src/main/resources/inventory.csv", true); // Open in append mode
+            FileWriter writer = new FileWriter("src/main/resources/inventory.csv", false);
 
-            String csvLine = vehicle.getVin() + "|" +
-                    vehicle.getYear() + "|" +
-                    vehicle.getMake() + "|" +
-                    vehicle.getModel() + "|" +
-                    vehicle.getColor() + "|" +
-                    vehicle.getVehicleType() + "|" +
-                    vehicle.getOdometer() + "|" +
-                    vehicle.getPrice();
+            for(Vehicle vehicle : dealership.getAllVehicles()) {
+                String csvLine = vehicle.getVin() + "|" +
+                        vehicle.getYear() + "|" +
+                        vehicle.getMake() + "|" +
+                        vehicle.getModel() + "|" +
+                        vehicle.getColor() + "|" +
+                        vehicle.getVehicleType() + "|" +
+                        vehicle.getOdometer() + "|" +
+                        vehicle.getPrice();
 
-            writer.write(csvLine + System.lineSeparator());
+                writer.write(csvLine + System.lineSeparator());
+            }
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
