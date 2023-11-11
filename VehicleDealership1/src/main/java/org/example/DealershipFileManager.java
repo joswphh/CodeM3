@@ -3,8 +3,6 @@ package org.example;
 
 import java.io.*;
 
-
-
 public class DealershipFileManager {
 
     public Dealership getDealership() {
