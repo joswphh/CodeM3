@@ -333,11 +333,14 @@ public class UserInterface {
         boolean vinFound = false;
         String choice = null;
 
+        //This line takes the vin that we will later use to match the car we are buying.
+        //We also see if the vin exists later with this line.
         System.out.println("Please enter the VIN of the car you would like to buy");
         if (scanner.hasNextInt()) {
             int vinToSearchBy = scanner.nextInt();
             scanner.nextLine(); // consume the newline
 
+            //This line see's is our user wants to finance the car.
             System.out.println("Would you like to finance? (Yes / No)");
             if (scanner.hasNextLine()) {
                 choice = scanner.nextLine();
@@ -362,6 +365,8 @@ public class UserInterface {
             List<Vehicle> vehicles = dealership.getAllVehicles();
             for (Vehicle vehicle : vehicles) {
                 if (vinToSearchBy == vehicle.getVin()) {
+                    // If vin is not found vinFound will stay false and skip back to the main menu.
+                    //will also output vin not found.
                     vinFound = true;
                     SalesContract salesContract = new SalesContract(date, customerName, customerEmail, vehicle, isFinanced);
                     salesContract.getTotalPrice();
@@ -369,12 +374,14 @@ public class UserInterface {
                     System.out.printf("Your Total Price will be: %.2f %n", salesContract.getTotalPrice());
                     System.out.printf("Your monthly payment will be %.2f %n", salesContract.getMonthlyPayment());
 
+                    //The block of code under will allow you to purchase the car only if the vin is found.
                     System.out.println("Would you like to buy it?");
                     if (scanner.hasNextLine()) {
                         String buyChoice = scanner.nextLine();
                         if (buyChoice.equalsIgnoreCase("yes")) {
                             dealership.removeVehicle(vehicle);
                             System.out.println("Removed vehicle with VIN " + vinToSearchBy);
+                            //We use this ContractFileManager to pass all the customer information into a file.
                             ContractFileManager.writeCustomerInfoToFile("SALE", date, customerName, customerEmail, vehicle, salesContract.salesTax(), salesContract.recordingFee(),
                                     salesContract.processingFee(), salesContract.getTotalPrice(), choice, salesContract.getMonthlyPayment());
                             System.out.println("Car successfully purchased. CONGRATS!!!");
@@ -414,10 +421,16 @@ public class UserInterface {
             String customerEmail = scanner.nextLine();
 
             List<Vehicle> vehicles = dealership.getAllVehicles();
+            // Vehicle Iterator will later help us remove the vehicle. Without it, we get an exception "ConcurrentModificationException"
+            // The exception basically is an error of us modifying the list while the program is trying to read over it.
+            //which causes our program to break and not allow us to update the file(s).
+            //Iterator is reads over the collection of my list and allows me to modify it without running into the problem before.
             Iterator<Vehicle> iterator = vehicles.iterator();
 
             while (iterator.hasNext()) {
+                //iterator.hasNext checks to make sure there is one or more elements in my collection.
                 Vehicle vehicle = iterator.next();
+                //we are assigning all the elements to vehicle.
 
                 if (vinToSearchBy == vehicle.getVin()) {
                     vinFound = true;
