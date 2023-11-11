@@ -243,7 +243,7 @@ public class UserInterface {
 
     private void processByVehicleTypeRequest() {
         String vehicleType = null;
-        System.out.println("What is the vehicle type you would like to search by?");
+        System.out.println("What is the vehicle type you would like to search by? (SUV,Truck,Car)");
         if (scanner.hasNextLine()) {
             vehicleType = scanner.nextLine();
         } else {
